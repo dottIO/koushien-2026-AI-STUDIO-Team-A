@@ -1,0 +1,21 @@
+name: Lint and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t todo-app .
+
+      - name: Run lint
+        run: docker run --rm todo-app ruff check .
+
+      - name: Run tests
+        run: docker run --rm todo-app pytest

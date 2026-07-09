@@ -1,0 +1,27 @@
+name: AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run AI review bot
+        env:
+          AI_REVIEW_TOKEN: ${{ secrets.AI_REVIEW_TOKEN }}
+        run: |
+          echo "Run AI review here"
+          echo "Replace this step with Copilot CLI or your AI review command"
+          echo "---"
+          echo "Example: Use a GitHub Action for AI-powered code review"
+          echo "Example: gh copilot review --diff"
+          echo "---"
+          echo "This is a template. Configure based on your environment."
