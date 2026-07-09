@@ -1,7 +1,7 @@
 """Flask TODO application - Complete version."""
 
 from flask import Flask, render_template, request, redirect, url_for
-from todo import add_todo, delete_todo
+from todo import add_todo, toggle_todo, delete_todo
 
 
 def create_app():
@@ -20,6 +20,12 @@ def create_app():
         title = request.form.get("title", "").strip()
         if title:
             app.config["todos"] = add_todo(app.config["todos"], title)
+        return redirect(url_for("index"))
+
+    @app.route("/toggle/<int:index>", methods=["POST"])
+    def toggle(index):
+        """Toggle the completed state of a TODO item."""
+        app.config["todos"] = toggle_todo(app.config["todos"], index)
         return redirect(url_for("index"))
 
     @app.route("/delete/<int:index>", methods=["POST"])

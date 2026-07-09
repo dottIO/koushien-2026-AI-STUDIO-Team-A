@@ -30,3 +30,10 @@ def test_add_empty_todo(client):
     """Test that empty TODO is not added."""
     response = client.post("/add", data={"title": ""}, follow_redirects=True)
     assert response.status_code == 200
+
+
+def test_toggle_todo(client):
+    """Test toggling a TODO item."""
+    client.post("/add", data={"title": "Task 1"})
+    response = client.post("/toggle/0", follow_redirects=True)
+    assert response.status_code == 200

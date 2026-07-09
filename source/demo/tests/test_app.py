@@ -32,6 +32,13 @@ def test_add_empty_todo(client):
     assert response.status_code == 200
 
 
+def test_toggle_todo(client):
+    """Test toggling a TODO item."""
+    client.post("/add", data={"title": "Task 1"})
+    response = client.post("/toggle/0", follow_redirects=True)
+    assert response.status_code == 200
+
+
 def test_delete_todo(client):
     """Test deleting a TODO item."""
     client.post("/add", data={"title": "Task to delete"})
