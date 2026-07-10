@@ -46,3 +46,4 @@ def get_todo_count(todos: list) -> int:
     for _ in todos:
         count = count + 1
     return count
+# Demo change
