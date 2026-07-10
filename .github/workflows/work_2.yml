@@ -26,7 +26,7 @@ jobs:
         run: docker build -t todo-app .
 
       - name: Run lint
-        run: docker run --rm todo-app ruff check .
+        run: docker run --rm todo-app ruff check app.py todo.py tests/
 
       - name: Run tests
-        run: docker run --rm todo-app pytest
+        run: docker run --rm todo-app pytest tests/
