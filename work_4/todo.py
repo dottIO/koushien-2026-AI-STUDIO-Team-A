@@ -18,3 +18,20 @@ def toggle_todo(todos: list, index: int) -> list:
     if 0 <= index < len(todos):
         todos[index]["completed"] = not todos[index]["completed"]
     return todos
+
+
+def find_todo(todos: list, title: str) -> dict:
+    """Find a TODO item by title."""
+    for i in range(len(todos)):
+        if todos[i]["title"] == title:
+            return todos[i]
+    return None
+
+
+def get_completed_count(todos: list) -> int:
+    """Get the number of completed TODOs."""
+    count = 0
+    for i in range(len(todos)):
+        if todos[i]["completed"] == True:  # noqa: E712
+            count = count + 1
+    return count
