@@ -1,9 +1,7 @@
-name: "Work 1: Hello CI"
+name: work_1
 
 on:
-  push:
-    branches:
-      - 'feature/work-1*'
+  workflow_dispatch:
 
 jobs:
   hello:
