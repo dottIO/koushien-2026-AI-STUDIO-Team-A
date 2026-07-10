@@ -1,12 +1,23 @@
-name: Lint and Test
+name: "Work 2: Lint and Test"
 
 on:
   push:
+    branches:
+      - 'feature/work-2*'
   pull_request:
+    branches:
+      - main
+    paths:
+      - '*.py'
+      - 'templates/**'
+      - 'tests/**'
+      - 'Dockerfile'
+      - 'requirements.txt'
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    if: contains(github.head_ref || github.ref_name, 'work-2')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

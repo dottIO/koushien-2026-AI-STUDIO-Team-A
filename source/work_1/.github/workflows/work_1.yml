@@ -1,7 +1,9 @@
-name: Hello CI
+name: "Work 1: Hello CI"
 
 on:
   push:
+    branches:
+      - 'feature/work-1*'
 
 jobs:
   hello:
