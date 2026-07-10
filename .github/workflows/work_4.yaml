@@ -1,0 +1,41 @@
+name: work_4
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'work_4/**'
+  workflow_dispatch:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t todo-app ./work_4
+
+      - name: Run lint
+        run: docker run --rm todo-app ruff check .
+
+      - name: Run tests
+        run: docker run --rm todo-app pytest
+
+  request-copilot-review:
+    needs: lint-and-test
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Assign Copilot as a reviewer
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --add-reviewer @copilot

@@ -1,29 +1,21 @@
-name: "Work 2: Lint and Test"
+name: work_2
 
 on:
-  push:
-    branches:
-      - 'feature/work-2*'
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
     paths:
-      - '*.py'
-      - 'templates/**'
-      - 'tests/**'
-      - 'Dockerfile'
-      - 'requirements.txt'
+      - 'work_2/**'
+  workflow_dispatch:
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    if: contains(github.head_ref || github.ref_name, 'work-2')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t todo-app .
+        run: docker build -t todo-app ./work_2
 
       - name: Run lint
         run: docker run --rm todo-app ruff check .
