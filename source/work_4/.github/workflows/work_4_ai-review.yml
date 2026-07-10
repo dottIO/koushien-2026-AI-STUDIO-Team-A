@@ -3,25 +3,18 @@ name: AI Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - '*.py'
+      - 'templates/**'
 
 jobs:
-  ai-review:
+  request-copilot-review:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run AI review bot
+      - name: Request Copilot review
         env:
-          AI_REVIEW_TOKEN: ${{ secrets.AI_REVIEW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Run AI review here"
-          echo "Replace this step with Copilot CLI or your AI review command"
-          echo "---"
-          echo "Example: Use a GitHub Action for AI-powered code review"
-          echo "Example: gh copilot review --diff"
-          echo "---"
-          echo "This is a template. Configure based on your environment."
+          gh pr edit ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --add-reviewer copilot
