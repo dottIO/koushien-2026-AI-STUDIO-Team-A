@@ -37,8 +37,9 @@ def test_toggle_todo():
     assert result[0]["completed"] is False
 
 
-def test_toggle_todo_invalid_index():
-    """Test toggling with invalid index does nothing."""
-    todos = [{"title": "Task 1", "completed": False}]
-    result = toggle_todo(todos, 99)
-    assert result[0]["completed"] is False
+def test_add_todo_intentionally_fails():
+    """Intentionally failing test for CI failure demo."""
+    todos = []
+    result = add_todo(todos, "Task 1")
+    # Intentionally wrong expectation for CI failure demo.
+    assert len(result) == 2
